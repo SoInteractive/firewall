@@ -72,6 +72,15 @@
     jump: ACCEPT
   when: firewall_env_subnet != ""
 
+- name: Restrict Docker access to specific subnet
+  iptables:
+    chain: DOCKER
+    action: insert
+    protocol: tcp
+    source: "! {{ docker_allow_subnet }}"
+    jump: DROP
+  when: docker_allow_subnet != ""
+
 - name: create additional rules
   iptables:
     chain: "{{ item.chain | default('INPUT') }}"
