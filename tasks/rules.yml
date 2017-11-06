@@ -77,9 +77,9 @@
     chain: DOCKER
     action: insert
     protocol: tcp
-    source: "! {{ docker_allow_subnet }}"
+    source: "! {{ firewall_env_subnet }}"
     jump: DROP
-  when: docker_allow_subnet != ""
+  when: firewall_restrict_docker
 
 - name: create additional rules
   iptables:
