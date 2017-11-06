@@ -28,3 +28,5 @@ firewall_fail2ban_bantime: 3600
 firewall_fail2ban_jails:
   - sshd
 #  - nginx
+
+docker_allow_subnet: ""
