@@ -9,6 +9,10 @@
     command: touch /var/log/auth.log
     args:
       creates: /var/log/auth.log
+  - name: add iptables chain
+    iptables_raw:
+      name: add_docker_chain
+      rules: '-N DOCKER'
 
 - hosts: all
   gather_facts: yes
