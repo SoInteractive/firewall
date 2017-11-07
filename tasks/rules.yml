@@ -72,6 +72,10 @@
     jump: ACCEPT
   when: firewall_env_subnet != ""
 
+- name: add Docker iptables chain
+  command: iptables -N DOCKER
+  when: firewall_restrict_docker
+
 - name: restrict Docker access to specific subnet
   iptables:
     chain: DOCKER

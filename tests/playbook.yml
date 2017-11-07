@@ -12,8 +12,8 @@
     command: touch /var/log/auth.log
     args:
       creates: /var/log/auth.log
-  - name: add iptables chain
-    command: iptables -N DOCKER
+#  - name: add iptables chain
+#    command: iptables -N DOCKER
 
 - hosts: all
   gather_facts: yes
