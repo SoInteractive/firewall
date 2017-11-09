@@ -72,14 +72,14 @@
     jump: ACCEPT
   when: firewall_env_subnet != ""
 
-- name: check for DOCKER chain existance
-  command: iptables -S DOCKER
-  register: docker_chain
-  ignore_errors: True
-
 - name: add Docker iptables chain
   command: iptables -N DOCKER
-  when: firewall_restrict_docker and docker_chain | failed
+  register: docker_chain
+  changed_when: docker_chain.rc == 0
+  failed_when:
+  - "docker_chain.rc != 0"
+  - "not 'iptables: Chain already exists.' in docker_chain.stderr"
+  when: firewall_restrict_docker
 
 - name: restrict Docker access to specific subnet
   iptables:
