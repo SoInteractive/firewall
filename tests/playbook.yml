@@ -1,13 +1,10 @@
 ---
 - hosts: all
   tasks:
-  - name: install packages
+  - name: install iproute
     package:
-      name: "{{ item }}"
+      name: iproute
       state: present
-    with_items:
-      - iproute
-      - iptables
   - name: ensure auth.log exists in container
     command: touch /var/log/auth.log
     args:
